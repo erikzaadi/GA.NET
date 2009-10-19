@@ -2,3 +2,5 @@ Google Analytics with support for tracking visits with javascript disabled.
 
 GoogleAnalyticsWebFormsControl -> For ASP.NET Web Forms
 GoogleAnalyticsHtmlHelper -> For ASP.NET MVC
+
+Inspired by Remy Sharps excellent WordPress plugin : http://remysharp.com/2009/10/15/the-missing-stat-noscript/
