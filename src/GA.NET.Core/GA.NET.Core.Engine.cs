@@ -60,23 +60,55 @@ namespace GA.NET.Core
             int cookieRandom = new Random().Next(100000000, 999999999);
             int random = new Random().Next(1000000000, 2147483647);
             long today = SecondsFromEpoch(DateTime.Now);
+
+            string cookie = "__utma=1"
+                + cookieRandom 
+                + "." 
+                + requestRandom 
+                + "." 
+                + today 
+                + "." 
+                + today 
+                + ".15;+__utmz=1." 
+                + today 
+                + ".1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none);";
+            string test = string.Format("http://www.google-analytics.com/__utm.gif?"
+            + "utmwv=4.3"
+            + "&utmn={0}"
+            + "&utmhn={1}"
+            + "&utmcs=UTF-8"
+            + "&utmul=-"
+            + "&utmdt=-"
+            + "&utmhid={0}"
+            + "&utmp={3}-TEST"
+            + "&utmac={4}"
+            + "&utmcc={2}",
+                random,
+                HttpUtility.HtmlEncode(Domain),
+                cookie,
+                PageName,
+                UrchinCode);
+            return test;
             string toReturn = "http://www.google-analytics.com/__utm.gif?utmwv=1&utmn={0}"
                     + "&utmsr=-&utmsc=-&utmul=-&utmje=0&utmfl=-&utmdt=-&utmhn={1}&utmr="
                     + "{2}&utmp={3}&utmac={4}&utmcc=__utma%3D"
                     + "{5}.{6}.{7}.{7}.{7}"
                     + ".2%3B%2B__utmb%3D{5}%3B%2B__utmc%3D{5}%3B%2B__utmz%3D"
-                    + "{5}.{7}2.2.utmccn%3D(direct)%7Cutmcsr%3D(direct)%7Cutmcmd%3D(none)%3B%2B__utmv%3D"
+                    + "{5}.{7}.2.2.utmccn%3D(direct)%7Cutmcsr%3D(direct)%7Cutmcmd%3D(none)%3B%2B__utmv%3D"
                     + "{5}.{8}%3B";
             return string.Format(toReturn,
                 requestRandom,//0
                 HttpUtility.HtmlEncode(Domain),//1 
-                HttpUtility.HtmlEncode(Referer),//2
+                string.IsNullOrEmpty(Referer) ? "-" : HttpUtility.HtmlEncode(Referer),//2
                 HttpUtility.HtmlEncode(PageName),//3 
                 UrchinCode,//4 
                 cookieRandom,//5
                 random,//6
                 today,//7 
-                HttpUtility.HtmlEncode(UserVar));//8 
+                HttpUtility.HtmlEncode(UserVar));//8
+            //http://www.google-analytics.com/__utm.gif?utmwv=4.3.1&utmn=1132547116&utme=&utmcs=-&utmsr=-&utmsc=-&utmul=-&utmje=0&utmfl=-&utmdt=-&utmhn=andrescholten.nl&utmhid=1132547116&utmr=-&utmp=/tracker/google-analytics-zonder-javascript/&utmac=UA-86808-2&utmcc=__utma%3D29302124.1706924510.1256221042.1256221042.1256221042.1%3B%2B__utmz%3D29302124.1256221045.1.1.utmcsr%3Dgoogle.co.uk%7Cutmccn%3D%28referral%29%7Cutmcmd%3Dreferral%7Cutmcct%3D%2Fsupport%2Fforum%2Fp%2FGoogle%20Analytics%2Fthread%3B
+            //http://code.google.com/p/serversidegoogleanalytics/
+            
             //'http://www.google-analytics.com/__utm.gif?utmwv=1&utmn='.$var_utmn.'&utmsr=-&utmsc=-&utmul=-&utmje=0&utmfl=-&utmdt=-&utmhn='.$var_utmhn.'&utmr='.$var_referer.'&utmp='.$var_utmp.'&utmac='.$var_utmac.'&utmcc=__utma%3D'.$var_cookie.'.'.$var_random.'.'.$var_today.'.'.$var_today.'.'.$var_today.'.2%3B%2B__utmb%3D'.$var_cookie.'%3B%2B__utmc%3D'.$var_cookie.'%3B%2B__utmz%3D'.$var_cookie.'.'.$var_today.'.2.2.utmccn%3D(direct)%7Cutmcsr%3D(direct)%7Cutmcmd%3D(none)%3B%2B__utmv%3D'.$var_cookie.'.'.$var_uservar.'%3B';
             //Reference - http://code.google.com/apis/analytics/docs/tracking/gaTrackingTroubleshooting.html
         }

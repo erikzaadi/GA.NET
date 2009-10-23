@@ -52,6 +52,7 @@
   <ItemGroup>
     <None Include="RemySharp\noscriptsnippetfromblog.php" />
     <None Include="RemySharp\noscript.php" />
+    <None Include="serversidegoogleanalytics\ssga.class.php" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\GaSnippet.include" />

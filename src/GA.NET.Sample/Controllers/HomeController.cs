@@ -13,5 +13,10 @@ namespace GA.NET.Sample.Controllers
         {
             return View();
         }
+
+        public ActionResult Test()
+        {
+            return View();
+        }
     }
 }

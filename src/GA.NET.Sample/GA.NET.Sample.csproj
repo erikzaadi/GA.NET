@@ -76,6 +76,7 @@
     <Content Include="Default.aspx" />
     <Content Include="GoogleAnalyticsWebFormsControl.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Views\Home\Test.aspx" />
     <Content Include="Web.config" />
     <Content Include="Content\Site.css" />
     <Content Include="Views\Home\Index.aspx" />
