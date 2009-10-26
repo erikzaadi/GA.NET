@@ -1,0 +1,73 @@
+--- 
+layout: default 
+title: Google Analytics.NET ASP.NET Web Forms Usage
+areaname: Google Analytics.NET
+arealink : /GA.NET
+link: /GA.NET/Sample/webforms
+---
+<div class="span-17 last">
+    <div class="span-17 last">
+        <div class="span-17 last">
+            <h2>
+                Google Analytics.NET</h2>
+	    </div>
+      	<div class="span-17 last">
+		<div>&nbsp;</div>
+			<h3>Web Forms Usage</h3>
+		</div>
+    </div>
+	<div class="span-17 last">
+	<div id="pygments">{% highlight html %}<GoogleAnalytics:GAControl 
+	ID="GAControlID" 
+	runat="server" 
+	GoogleAnalyticsID="UA-xxxxxx-x" />{% endhighlight %}
+		</div>	
+		<div>&nbsp;</div>
+		<h4><em>Results in </em> </h4>
+	<div id="pygments">{% highlight html %}<!-- Google Analytics --> 
+ 
+<script type="text/javascript"> 
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." 
+		|->: "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + 
+	|-> "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script> 
+ 
+<script type="text/javascript"> 
+    try {
+        var pageTracker = _gat._getTracker("UA-xxxxxx-x");
+        pageTracker._trackPageview();
+    } catch (err) { } 
+</script> 
+ 
+<noscript> 
+    <img src="http://www.google-analytics.com/__utm.gif?utmwv=1
+	|-> &utmn=732163174&utmsr=-&utmsc=-&utmul=-&utmje=0&utmfl=-
+	|-> &utmdt=-&utmhn=localhost&utmr=http://URLTOPAGE
+	|-> &utmp=GoogleAnalyticsWebFormsControl.aspx&utmac=UA-xxxxxx-x
+	|-> &utmcc=__utma%3D732163174.1805996561.1256572532.1256572532.
+	|-> 1256572532.2%3B%2B__utmb%3D732163174%3B%2B__utmc%3D732163174
+	|-> %3B%2B__utmz%3D732163174.1256572532.2.2.utmccn%3D(referral)%
+	|-> 7Cutmcsr%3D(referral)%7Cutmcmd%3D(none)%3B%2B__utmv%3D732163174.-%3B" 
+	alt="GA" style="display: none;border:none;" border="0" /> 
+</noscript> 
+
+<!-- Google Analytics End -->{% endhighlight %}
+		</div>
+	</div>
+
+   <div class="span-17 last">
+        &nbsp;</div>
+ <div class="span-17 last">
+    <div>    There are also several overloads, allowing you to customize the parameters that reach the Google Analytics Dashboard</div>
+	<div id="pygments">{% highlight html %}<GoogleAnalytics:GAControl 
+	ID="GAControl1" 
+	Domain="custom.domain.com" 
+	PageName="CustomPageName"
+	Referer="" 
+	UserVariable="SomethingSpecial" 
+	runat="server" 
+	GoogleAnalyticsID="UA-xxxxxx-x" />{% endhighlight %}
+	</div>
+</div>	
+</div>
