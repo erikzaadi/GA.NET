@@ -12,11 +12,11 @@ using System.Web.UI.WebControls;
 namespace GA.NET.ASPNET
 {
     /// <summary>
-    /// 
+    /// Google Analytics Include Generator (With support for tracking browsers with javascript disabled)
     /// </summary>
     [ToolboxData("<{0}:GAControl ID='GAControlID' GoogleAnalyticsID='' runat=\"server\"> </{0}:GAControl>")]
     [DefaultProperty("GoogleAnalyticsID")]
-    [Description("")]
+    [Description("Google Analytics Include Generator (With support for tracking browsers with javascript disabled)")]
     public class GAControl : WebControl
     {
         [Category("Mandatory")]

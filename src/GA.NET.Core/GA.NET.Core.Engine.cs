@@ -46,85 +46,85 @@ namespace GA.NET.Core
         /// <summary>
         /// Google Account ID Place Holder in both NoScript and Script templates
         /// </summary>
-        private const string GoogleAccountIDPlaceHolder = "GA_CODE";
+        private const string GoogleAnalyticsIDPlaceHolder = "GA_CODE";
 
         /// <summary>
-        /// 
+        /// Returns the html and javascript to include for Google Analytics Tracking
         /// </summary>
-        /// <param name="GoogleAccountID"></param>
-        /// <param name="Context"></param>
+        /// <param name="GoogleAnalyticsID">Google Analytics ID (UA-xxxxxx-x)</param>
+        /// <param name="Context">Http Context to take the request parameters from</param>
         /// <returns></returns>
-        public static string GetGoogleAnalytics(string GoogleAccountID, System.Web.HttpContext Context)
+        public static string GetGoogleAnalytics(string GoogleAnalyticsID, System.Web.HttpContext Context)
         {
             HttpContext current = Context ?? HttpContext.Current;
             string domain = current.Request.Url.Host;
             string referer = current.Request.UrlReferrer != null ? current.Request.UrlReferrer.ToString() : "";
             string pagename = System.IO.Path.GetFileName(current.Request.Url.LocalPath);
 
-            return GetGoogleAnalytics(GoogleAccountID, domain, referer, pagename, "");
+            return GetGoogleAnalytics(GoogleAnalyticsID, domain, referer, pagename, "");
         }
 
         /// <summary>
-        /// 
+        /// Returns the html and javascript to include for Google Analytics Tracking
         /// </summary>
-        /// <param name="GoogleAccountID"></param>
-        /// <param name="Domain"></param>
-        /// <param name="Referer"></param>
-        /// <param name="PageName"></param>
-        /// <param name="UserVariable"></param>
+        /// <param name="GoogleAnalyticsID">Google Analytics ID (UA-xxxxxx-x)</param>
+        /// <param name="Domain">Domain to track <example>sub.domain.com</example></param>
+        /// <param name="Referer">Refering page</param>
+        /// <param name="PageName">Name of page (shown in the Google Analytics Dashboard)</param>
+        /// <param name="UserVariable">Special variable to pass to analytics</param>
         /// <returns></returns>
-        public static string GetGoogleAnalytics(string GoogleAccountID, string Domain, string Referer, string PageName, string UserVariable)
+        public static string GetGoogleAnalytics(string GoogleAnalyticsID, string Domain, string Referer, string PageName, string UserVariable)
         {
             string scriptTemplate = GetScriptSnippetTemplate();
             string noScriptTemplate = GetNoScriptSnippetTemplate();
 
-            string imageURL = BuildImageURL(GoogleAccountID,
+            string imageURL = BuildImageURL(GoogleAnalyticsID,
                 Domain,
                 Referer,
                 PageName,
                 UserVariable);
 
-            scriptTemplate = scriptTemplate.Replace(GoogleAccountIDPlaceHolder, GoogleAccountID);
+            scriptTemplate = scriptTemplate.Replace(GoogleAnalyticsIDPlaceHolder, GoogleAnalyticsID);
             noScriptTemplate = noScriptTemplate
                 .Replace(ImageURLPlaceHolder, imageURL)
-                .Replace(GoogleAccountIDPlaceHolder, GoogleAccountID);
+                .Replace(GoogleAnalyticsIDPlaceHolder, GoogleAnalyticsID);
 
             return string.Format("{0}{1}{2}{3}", Prefix, scriptTemplate, noScriptTemplate, Suffix);
         }
 
         /// <summary>
-        /// 
+        /// Returns the html (only) to include for Google Analytics Tracking
         /// </summary>
-        /// <param name="GoogleAccountID"></param>
-        /// <param name="Domain"></param>
-        /// <param name="Referer"></param>
-        /// <param name="PageName"></param>
-        /// <param name="UserVariable"></param>
+        /// <param name="GoogleAnalyticsID">Google Analytics ID (UA-xxxxxx-x)</param>
+        /// <param name="Domain">Domain to track <example>sub.domain.com</example></param>
+        /// <param name="Referer">Refering page</param>
+        /// <param name="PageName">Name of page (shown in the Google Analytics Dashboard)</param>
+        /// <param name="UserVariable">Special variable to pass to analytics</param>
         /// <returns></returns>
-        public static string GetGoogleAnalyticsNoScriptOnly(string GoogleAccountID, string Domain, string Referer, string PageName, string UserVariable)
+        public static string GetGoogleAnalyticsNoScriptOnly(string GoogleAnalyticsID, string Domain, string Referer, string PageName, string UserVariable)
         {
             string scriptTemplate = GetScriptSnippetTemplate();
 
             scriptTemplate = scriptTemplate
-              .Replace(GoogleAccountIDPlaceHolder, GoogleAccountID);
+              .Replace(GoogleAnalyticsIDPlaceHolder, GoogleAnalyticsID);
 
             return string.Format("{0}{1}{2}", Prefix, scriptTemplate, Suffix);
         }
 
         /// <summary>
-        /// 
+        /// Returns the javascript (only) to include for Google Analytics Tracking
         /// </summary>
-        /// <param name="GoogleAccountID"></param>
-        /// <param name="Domain"></param>
-        /// <param name="Referer"></param>
-        /// <param name="PageName"></param>
-        /// <param name="UserVariable"></param>
+        /// <param name="GoogleAnalyticsID">Google Analytics ID (UA-xxxxxx-x)</param>
+        /// <param name="Domain">Domain to track <example>sub.domain.com</example></param>
+        /// <param name="Referer">Refering page</param>
+        /// <param name="PageName">Name of page (shown in the Google Analytics Dashboard)</param>
+        /// <param name="UserVariable">Special variable to pass to analytics</param>
         /// <returns></returns>
-        public static string GetGoogleAnalyticsScriptOnly(string GoogleAccountID, string Domain, string Referer, string PageName, string UserVariable)
+        public static string GetGoogleAnalyticsScriptOnly(string GoogleAnalyticsID, string Domain, string Referer, string PageName, string UserVariable)
         {
             string noScriptTemplate = GetNoScriptSnippetTemplate();
 
-            string imageURL = BuildImageURL(GoogleAccountID,
+            string imageURL = BuildImageURL(GoogleAnalyticsID,
                 Domain,
                 Referer,
                 PageName,
@@ -132,13 +132,13 @@ namespace GA.NET.Core
 
             noScriptTemplate = noScriptTemplate
                 .Replace(ImageURLPlaceHolder, imageURL)
-                .Replace(GoogleAccountIDPlaceHolder, GoogleAccountID);
+                .Replace(GoogleAnalyticsIDPlaceHolder, GoogleAnalyticsID);
 
             return string.Format("{0}{1}{2}", Prefix, noScriptTemplate, Suffix);
         }
 
         /// <summary>
-        /// 
+        /// Get's an embedded resource
         /// </summary>
         /// <param name="ResourceName"></param>
         /// <returns></returns>
@@ -154,7 +154,7 @@ namespace GA.NET.Core
         }
 
         /// <summary>
-        /// 
+        /// Get's the NoScript template
         /// </summary>
         /// <returns></returns>
         private static string GetNoScriptSnippetTemplate()
@@ -163,7 +163,7 @@ namespace GA.NET.Core
         }
 
         /// <summary>
-        /// 
+        /// Get's the Script template
         /// </summary>
         /// <returns></returns>
         private static string GetScriptSnippetTemplate()
@@ -172,15 +172,15 @@ namespace GA.NET.Core
         }
 
         /// <summary>
-        /// 
+        /// Get's the URL to the __utm.gif (Google Analytics Tracker)
         /// </summary>
-        /// <param name="GoogleAccountID"></param>
-        /// <param name="Domain"></param>
-        /// <param name="Referer"></param>
-        /// <param name="PageName"></param>
-        /// <param name="UserVar"></param>
+        /// <param name="GoogleAnalyticsID">Google Analytics ID (UA-xxxxxx-x)</param>
+        /// <param name="Domain">Domain to track <example>sub.domain.com</example></param>
+        /// <param name="Referer">Refering page</param>
+        /// <param name="PageName">Name of page (shown in the Google Analytics Dashboard)</param>
+        /// <param name="UserVar">User variable to pass to Google Analytics</param>
         /// <returns></returns>
-        private static string BuildImageURL(string GoogleAccountID,
+        private static string BuildImageURL(string GoogleAnalyticsID,
                                             string Domain,
                                             string Referer,
                                             string PageName,
@@ -203,7 +203,7 @@ namespace GA.NET.Core
                 string.IsNullOrEmpty(Domain) ? "-" : HttpUtility.HtmlEncode(Domain),//1 
                 string.IsNullOrEmpty(Referer) ? "-" : HttpUtility.HtmlEncode(Referer),//2
                 string.IsNullOrEmpty(PageName) ? NoScriptPageNameSuffix : HttpUtility.HtmlEncode(PageName),//3 
-                GoogleAccountID,//4 
+                GoogleAnalyticsID,//4 
                 cookieRandom,//5
                 random,//6
                 today,//7 
