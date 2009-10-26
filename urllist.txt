@@ -1,0 +1,6 @@
+---
+layout: nil
+---
+http://erikzaadi.github.com/GA.NET/
+http://erikzaadi.github.com/GA.NET/posts.html{% for post in site.posts %}
+http://erikzaadi.github.com/GA.NET/{{ post.url }}{% endfor %}
