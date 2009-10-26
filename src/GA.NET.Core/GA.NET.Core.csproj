@@ -52,10 +52,10 @@
   <ItemGroup>
     <None Include="RemySharp\noscriptsnippetfromblog.php" />
     <None Include="RemySharp\noscript.php" />
-    <None Include="Resources\NoScript.template" />
+    <EmbeddedResource Include="Resources\NoScript.template" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Script.template" />
+    <EmbeddedResource Include="Resources\Script.template" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

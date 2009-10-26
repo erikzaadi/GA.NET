@@ -48,6 +48,12 @@ namespace GA.NET.Core
         /// </summary>
         private const string GoogleAccountIDPlaceHolder = "GA_CODE";
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="GoogleAccountID"></param>
+        /// <param name="Context"></param>
+        /// <returns></returns>
         public static string GetGoogleAnalytics(string GoogleAccountID, System.Web.HttpContext Context)
         {
             HttpContext current = Context ?? HttpContext.Current;
@@ -58,6 +64,15 @@ namespace GA.NET.Core
             return GetGoogleAnalytics(GoogleAccountID, domain, referer, pagename, "");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="GoogleAccountID"></param>
+        /// <param name="Domain"></param>
+        /// <param name="Referer"></param>
+        /// <param name="PageName"></param>
+        /// <param name="UserVariable"></param>
+        /// <returns></returns>
         public static string GetGoogleAnalytics(string GoogleAccountID, string Domain, string Referer, string PageName, string UserVariable)
         {
             string scriptTemplate = GetScriptSnippetTemplate();
@@ -77,6 +92,15 @@ namespace GA.NET.Core
             return string.Format("{0}{1}{2}{3}", Prefix, scriptTemplate, noScriptTemplate, Suffix);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="GoogleAccountID"></param>
+        /// <param name="Domain"></param>
+        /// <param name="Referer"></param>
+        /// <param name="PageName"></param>
+        /// <param name="UserVariable"></param>
+        /// <returns></returns>
         public static string GetGoogleAnalyticsNoScriptOnly(string GoogleAccountID, string Domain, string Referer, string PageName, string UserVariable)
         {
             string scriptTemplate = GetScriptSnippetTemplate();
@@ -87,6 +111,15 @@ namespace GA.NET.Core
             return string.Format("{0}{1}{2}", Prefix, scriptTemplate, Suffix);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="GoogleAccountID"></param>
+        /// <param name="Domain"></param>
+        /// <param name="Referer"></param>
+        /// <param name="PageName"></param>
+        /// <param name="UserVariable"></param>
+        /// <returns></returns>
         public static string GetGoogleAnalyticsScriptOnly(string GoogleAccountID, string Domain, string Referer, string PageName, string UserVariable)
         {
             string noScriptTemplate = GetNoScriptSnippetTemplate();
@@ -104,6 +137,11 @@ namespace GA.NET.Core
             return string.Format("{0}{1}{2}", Prefix, noScriptTemplate, Suffix);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ResourceName"></param>
+        /// <returns></returns>
         private static string GetResource(string ResourceName)
         {
             string resource = "";
@@ -115,16 +153,33 @@ namespace GA.NET.Core
             return resource;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private static string GetNoScriptSnippetTemplate()
         {
             return GetResource(NoScriptTemplateResourceName);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private static string GetScriptSnippetTemplate()
         {
             return GetResource(ScriptTemplateResourceName);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="GoogleAccountID"></param>
+        /// <param name="Domain"></param>
+        /// <param name="Referer"></param>
+        /// <param name="PageName"></param>
+        /// <param name="UserVar"></param>
+        /// <returns></returns>
         private static string BuildImageURL(string GoogleAccountID,
                                             string Domain,
                                             string Referer,
@@ -159,9 +214,16 @@ namespace GA.NET.Core
         }
 
         //http://sigabrt.blogspot.com/2007/07/c-datetime-tofrom-unix-epoch.html
+        /// <summary>
+        /// Unix Start Date
+        /// </summary>
         public static readonly DateTime JAN_01_1970 =
             DateTime.SpecifyKind(new DateTime(1970, 1, 1, 0, 0, 0), DateTimeKind.Utc);
-        // Get Unix Timestamp for given DateTime
+        /// <summary>
+        /// Get Unix Timestamp for given DateTime
+        /// </summary>
+        /// <param name="date">DateTime to convert</param>
+        /// <returns>long Unix Timestamp</returns>
         public static long SecondsFromEpoch(DateTime date)
         {
             DateTime dt = date.ToUniversalTime();

@@ -47,6 +47,8 @@
             </form>
             <div id="footer">
             </div>
+            <p>
+                <a href='Home/Index'>ASP.NET MVC Sample</a></p>
         </div>
     </div>
 </body>

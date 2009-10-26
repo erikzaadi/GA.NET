@@ -11,8 +11,12 @@ using System.Web.UI.WebControls;
 [assembly: TagPrefix("GA.NET.ASPNET", "GoogleAnalytics")]
 namespace GA.NET.ASPNET
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [ToolboxData("<{0}:GAControl ID='GAControlID' GoogleAnalyticsID='' runat=\"server\"> </{0}:GAControl>")]
     [DefaultProperty("GoogleAnalyticsID")]
+    [Description("")]
     public class GAControl : WebControl
     {
         [Category("Mandatory")]

@@ -6,13 +6,29 @@ using System.Web.Mvc;
 
 namespace GA.NET.MVC
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class GoogleAnalyticsHtmlHelper
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <param name="GoogleAnalyticsID"></param>
+        /// <returns></returns>
         public static string GoogleAnalytics(this HtmlHelper helper, string GoogleAnalyticsID)
         {
             return helper.GoogleAnalytics(GoogleAnalyticsID, null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <param name="GoogleAnalyticsID"></param>
+        /// <param name="PageName"></param>
+        /// <returns></returns>
         public static string GoogleAnalytics(this HtmlHelper helper,
             string GoogleAnalyticsID,
             string PageName)
@@ -22,6 +38,14 @@ namespace GA.NET.MVC
                 null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <param name="GoogleAnalyticsID"></param>
+        /// <param name="PageName"></param>
+        /// <param name="Domain"></param>
+        /// <returns></returns>
         public static string GoogleAnalytics(this HtmlHelper helper,
             string GoogleAnalyticsID,
             string PageName,
@@ -33,6 +57,15 @@ namespace GA.NET.MVC
                 null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <param name="GoogleAnalyticsID"></param>
+        /// <param name="PageName"></param>
+        /// <param name="Domain"></param>
+        /// <param name="Referer"></param>
+        /// <returns></returns>
         public static string GoogleAnalytics(this HtmlHelper helper,
             string GoogleAnalyticsID,
             string PageName,
@@ -46,6 +79,16 @@ namespace GA.NET.MVC
                 null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <param name="GoogleAnalyticsID"></param>
+        /// <param name="PageName"></param>
+        /// <param name="Domain"></param>
+        /// <param name="Referer"></param>
+        /// <param name="UserVariable"></param>
+        /// <returns></returns>
         public static string GoogleAnalytics(this HtmlHelper helper,
             string GoogleAnalyticsID,
             string PageName,

@@ -28,4 +28,8 @@
         <!-- With custom parameters for javascript disabled tracking -->
         <%= Html.GoogleAnalytics("UA-xxxxxx-x","CustomPageName","custom.domain.com","","userVariable")%>
     </div>
+    <p>
+        <a href='<%= Url.Content("~/GoogleAnalyticsWebFormsControl.aspx") %>'>Regular Web Forms
+            Example</a>
+    </p>
 </asp:Content>
