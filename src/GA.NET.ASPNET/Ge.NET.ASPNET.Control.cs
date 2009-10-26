@@ -42,9 +42,9 @@ namespace GA.NET.ASPNET
               !string.IsNullOrEmpty(Domain) ||
               !string.IsNullOrEmpty(Referer) ||
               !string.IsNullOrEmpty(UserVariable))
-                text = GA.NET.Core.Engine.GetGA(GoogleAnalyticsID, Domain, Referer, PageName, UserVariable);
+                text = GA.NET.Core.Engine.GetGoogleAnalytics(GoogleAnalyticsID, Domain, Referer, PageName, UserVariable);
             else
-                text = GA.NET.Core.Engine.GetGA(GoogleAnalyticsID, HttpContext.Current);
+                text = GA.NET.Core.Engine.GetGoogleAnalytics(GoogleAnalyticsID, HttpContext.Current);
             writer.Write(text);
         }
 

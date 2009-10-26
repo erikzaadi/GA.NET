@@ -8,49 +8,124 @@ using System.Web;
 
 namespace GA.NET.Core
 {
+    /// <summary>
+    /// Google Analytics Include Generator (With support for tracking browsers with javascript disabled)
+    /// </summary>
     public class Engine
     {
-        private const string SnippetTemplateResourceName = "GA.NET.Core.Resources.GaSnippet.include";
-        private const string GoogleAnalyticsImageURLPlaceHolder = "GA_IMG";
-        private const string GoogleAnalyticsUrchinPlaceHolder = "GA_CODE";
+        /// <summary>
+        /// Suffix for page name (shown in Google Analytics dashboard)
+        /// </summary>
+        public const string NoScriptPageNameSuffix = "[NOSCRIPT]";
 
-        public static string GetGA(string UrchinCode, System.Web.HttpContext Context)
+        /// <summary>
+        /// Script template (you can edit the file)
+        /// </summary>
+        private const string ScriptTemplateResourceName = "GA.NET.Core.Resources.Script.template";
+        
+        /// <summary>
+        /// No Script template (you can edit the file)
+        /// </summary>
+        private const string NoScriptTemplateResourceName = "GA.NET.Core.Resources.NoScript.template";
+        
+        /// <summary>
+        /// Include Prefix
+        /// </summary>
+        private const string Prefix = "\n<!-- Google Analytics -->\n";
+        
+        /// <summary>
+        /// Include Suffix
+        /// </summary>
+        private const string Suffix = "\n<!-- Google Analytics End -->\n";
+       
+        /// <summary>
+        /// Image place holder in No Script template
+        /// </summary>
+        private const string ImageURLPlaceHolder = "GA_IMG";
+        
+        /// <summary>
+        /// Google Account ID Place Holder in both NoScript and Script templates
+        /// </summary>
+        private const string GoogleAccountIDPlaceHolder = "GA_CODE";
+
+        public static string GetGoogleAnalytics(string GoogleAccountID, System.Web.HttpContext Context)
         {
             HttpContext current = Context ?? HttpContext.Current;
             string domain = current.Request.Url.Host;
             string referer = current.Request.UrlReferrer != null ? current.Request.UrlReferrer.ToString() : "";
             string pagename = System.IO.Path.GetFileName(current.Request.Url.LocalPath);
 
-            return GetGA(UrchinCode, domain, referer, pagename, "");
+            return GetGoogleAnalytics(GoogleAccountID, domain, referer, pagename, "");
         }
 
-        public static string GetGA(string UrchinCode, string Domain, string Referer, string PageName, string UserVariable)
+        public static string GetGoogleAnalytics(string GoogleAccountID, string Domain, string Referer, string PageName, string UserVariable)
         {
-            string snippetTemplate = GetSnippetTemplate();
+            string scriptTemplate = GetScriptSnippetTemplate();
+            string noScriptTemplate = GetNoScriptSnippetTemplate();
 
-            string imageURL = BuildImageURL(UrchinCode,
+            string imageURL = BuildImageURL(GoogleAccountID,
                 Domain,
                 Referer,
                 PageName,
                 UserVariable);
 
-            return snippetTemplate
-                .Replace(GoogleAnalyticsImageURLPlaceHolder, imageURL)
-                .Replace(GoogleAnalyticsUrchinPlaceHolder, UrchinCode);
+            scriptTemplate = scriptTemplate.Replace(GoogleAccountIDPlaceHolder, GoogleAccountID);
+            noScriptTemplate = noScriptTemplate
+                .Replace(ImageURLPlaceHolder, imageURL)
+                .Replace(GoogleAccountIDPlaceHolder, GoogleAccountID);
+
+            return string.Format("{0}{1}{2}{3}", Prefix, scriptTemplate, noScriptTemplate, Suffix);
         }
 
-        private static string GetSnippetTemplate()
+        public static string GetGoogleAnalyticsNoScriptOnly(string GoogleAccountID, string Domain, string Referer, string PageName, string UserVariable)
         {
-            string snippetTemplate = "";
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            using (TextReader tr = new StreamReader(assembly.GetManifestResourceStream(SnippetTemplateResourceName)))
-            {
-                snippetTemplate = tr.ReadToEnd();
-            }
-            return snippetTemplate;
+            string scriptTemplate = GetScriptSnippetTemplate();
+
+            scriptTemplate = scriptTemplate
+              .Replace(GoogleAccountIDPlaceHolder, GoogleAccountID);
+
+            return string.Format("{0}{1}{2}", Prefix, scriptTemplate, Suffix);
         }
 
-        private static string BuildImageURL(string UrchinCode,
+        public static string GetGoogleAnalyticsScriptOnly(string GoogleAccountID, string Domain, string Referer, string PageName, string UserVariable)
+        {
+            string noScriptTemplate = GetNoScriptSnippetTemplate();
+
+            string imageURL = BuildImageURL(GoogleAccountID,
+                Domain,
+                Referer,
+                PageName,
+                UserVariable);
+
+            noScriptTemplate = noScriptTemplate
+                .Replace(ImageURLPlaceHolder, imageURL)
+                .Replace(GoogleAccountIDPlaceHolder, GoogleAccountID);
+
+            return string.Format("{0}{1}{2}", Prefix, noScriptTemplate, Suffix);
+        }
+
+        private static string GetResource(string ResourceName)
+        {
+            string resource = "";
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            using (TextReader tr = new StreamReader(assembly.GetManifestResourceStream(ResourceName)))
+            {
+                resource = tr.ReadToEnd();
+            }
+            return resource;
+        }
+
+        private static string GetNoScriptSnippetTemplate()
+        {
+            return GetResource(NoScriptTemplateResourceName);
+        }
+
+        private static string GetScriptSnippetTemplate()
+        {
+            return GetResource(ScriptTemplateResourceName);
+        }
+
+        private static string BuildImageURL(string GoogleAccountID,
                                             string Domain,
                                             string Referer,
                                             string PageName,
@@ -61,55 +136,25 @@ namespace GA.NET.Core
             int random = new Random().Next(1000000000, 2147483647);
             long today = SecondsFromEpoch(DateTime.Now);
 
-            string cookie = "__utma=1"
-                + cookieRandom 
-                + "." 
-                + requestRandom 
-                + "." 
-                + today 
-                + "." 
-                + today 
-                + ".15;+__utmz=1." 
-                + today 
-                + ".1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none);";
-            string test = string.Format("http://www.google-analytics.com/__utm.gif?"
-            + "utmwv=4.3"
-            + "&utmn={0}"
-            + "&utmhn={1}"
-            + "&utmcs=UTF-8"
-            + "&utmul=-"
-            + "&utmdt=-"
-            + "&utmhid={0}"
-            + "&utmp={3}-TEST"
-            + "&utmac={4}"
-            + "&utmcc={2}",
-                random,
-                HttpUtility.HtmlEncode(Domain),
-                cookie,
-                PageName,
-                UrchinCode);
-            return test;
             string toReturn = "http://www.google-analytics.com/__utm.gif?utmwv=1&utmn={0}"
                     + "&utmsr=-&utmsc=-&utmul=-&utmje=0&utmfl=-&utmdt=-&utmhn={1}&utmr="
                     + "{2}&utmp={3}&utmac={4}&utmcc=__utma%3D"
                     + "{5}.{6}.{7}.{7}.{7}"
                     + ".2%3B%2B__utmb%3D{5}%3B%2B__utmc%3D{5}%3B%2B__utmz%3D"
-                    + "{5}.{7}.2.2.utmccn%3D(direct)%7Cutmcsr%3D(direct)%7Cutmcmd%3D(none)%3B%2B__utmv%3D"
+                    + "{5}.{7}.2.2.utmccn%3D({9})%7Cutmcsr%3D({9})%7Cutmcmd%3D(none)%3B%2B__utmv%3D"
                     + "{5}.{8}%3B";
             return string.Format(toReturn,
                 requestRandom,//0
-                HttpUtility.HtmlEncode(Domain),//1 
+                string.IsNullOrEmpty(Domain) ? "-" : HttpUtility.HtmlEncode(Domain),//1 
                 string.IsNullOrEmpty(Referer) ? "-" : HttpUtility.HtmlEncode(Referer),//2
-                HttpUtility.HtmlEncode(PageName),//3 
-                UrchinCode,//4 
+                string.IsNullOrEmpty(PageName) ? NoScriptPageNameSuffix : HttpUtility.HtmlEncode(PageName),//3 
+                GoogleAccountID,//4 
                 cookieRandom,//5
                 random,//6
                 today,//7 
-                HttpUtility.HtmlEncode(UserVar));//8
-            //http://www.google-analytics.com/__utm.gif?utmwv=4.3.1&utmn=1132547116&utme=&utmcs=-&utmsr=-&utmsc=-&utmul=-&utmje=0&utmfl=-&utmdt=-&utmhn=andrescholten.nl&utmhid=1132547116&utmr=-&utmp=/tracker/google-analytics-zonder-javascript/&utmac=UA-86808-2&utmcc=__utma%3D29302124.1706924510.1256221042.1256221042.1256221042.1%3B%2B__utmz%3D29302124.1256221045.1.1.utmcsr%3Dgoogle.co.uk%7Cutmccn%3D%28referral%29%7Cutmcmd%3Dreferral%7Cutmcct%3D%2Fsupport%2Fforum%2Fp%2FGoogle%20Analytics%2Fthread%3B
-            //http://code.google.com/p/serversidegoogleanalytics/
-            
-            //'http://www.google-analytics.com/__utm.gif?utmwv=1&utmn='.$var_utmn.'&utmsr=-&utmsc=-&utmul=-&utmje=0&utmfl=-&utmdt=-&utmhn='.$var_utmhn.'&utmr='.$var_referer.'&utmp='.$var_utmp.'&utmac='.$var_utmac.'&utmcc=__utma%3D'.$var_cookie.'.'.$var_random.'.'.$var_today.'.'.$var_today.'.'.$var_today.'.2%3B%2B__utmb%3D'.$var_cookie.'%3B%2B__utmc%3D'.$var_cookie.'%3B%2B__utmz%3D'.$var_cookie.'.'.$var_today.'.2.2.utmccn%3D(direct)%7Cutmcsr%3D(direct)%7Cutmcmd%3D(none)%3B%2B__utmv%3D'.$var_cookie.'.'.$var_uservar.'%3B';
+                string.IsNullOrEmpty(UserVar) ? "-" : HttpUtility.HtmlEncode(UserVar),//8
+                string.IsNullOrEmpty(Referer) ? "direct" : "referral");//
+
             //Reference - http://code.google.com/apis/analytics/docs/tracking/gaTrackingTroubleshooting.html
         }
 

@@ -57,8 +57,7 @@ namespace GA.NET.MVC
             string referer = string.IsNullOrEmpty(Referer) ? (helper.ViewContext.HttpContext.Request.UrlReferrer != null ? helper.ViewContext.HttpContext.Request.UrlReferrer.ToString() : "") : Referer;
             string pagename = string.IsNullOrEmpty(PageName) ? helper.ViewContext.HttpContext.Request.Url.PathAndQuery + "[noscript]" : PageName;
             string userVariable = string.IsNullOrEmpty(UserVariable) ? "" : UserVariable;
-            return GA.NET.Core.Engine.GetGA(GoogleAnalyticsID, domain, referer, pagename, userVariable);
+            return GA.NET.Core.Engine.GetGoogleAnalytics(GoogleAnalyticsID, domain, referer, pagename, userVariable);
         }
-
     }
 }
