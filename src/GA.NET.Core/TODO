@@ -1,0 +1,16 @@
+﻿var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXX-X']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script');
+ga.src = ('https:' == document.location.protocol ?
+    'https://ssl' : 'http://www') +
+    '.google-analytics.com/ga.js';
+ga.setAttribute('async', 'true');
+document.documentElement.firstChild.appendChild(ga);
+})();
+
+
+http://www.stevesouders.com/blog/2009/12/01/google-analytics-goes-async/
+http://googlecode.blogspot.com/2009/12/google-analytics-launches-asynchronous.html
