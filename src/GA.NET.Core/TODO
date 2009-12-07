@@ -1,4 +1,4 @@
-﻿var _gaq = _gaq || [];
+var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-XXXXX-X']);
 _gaq.push(['_trackPageview']);
 
@@ -14,3 +14,5 @@ document.documentElement.firstChild.appendChild(ga);
 
 http://www.stevesouders.com/blog/2009/12/01/google-analytics-goes-async/
 http://googlecode.blogspot.com/2009/12/google-analytics-launches-asynchronous.html
+
+Add support for events / custom domains?
