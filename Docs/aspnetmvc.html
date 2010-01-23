@@ -1,0 +1,59 @@
+<div class="span-17 last">
+    <div class="span-17 last">
+        <div class="span-17 last">
+            <h2>
+                Google Analytics.NET</h2>
+	    </div>
+      	<div class="span-17 last">
+		<div>&nbsp;</div>
+			<h3>ASP.NET MVC Usage</h3>
+		</div>
+    </div>
+	<div class="span-17 last">
+	<div><pre><code>&lt;%= Html.GoogleAnalytics("UA-xxxxxx-x")%&gt;</code></pre>
+		</div>	
+		<div>&nbsp;</div>
+		<h4><em>Results in </em> </h4>
+	<div><pre><code>&lt;!-- Google Analytics --&gt;
+	
+ &lt;script type="text/javascript"&gt;
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'GA-CODE']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+    })();
+&lt;/script&gt;
+ 
+&lt;noscript&gt; 
+    &lt;img src="http://www.google-analytics.com/__utm.gif?utmwv=1
+	|-> &utmn=938102714&utmsr=-&utmsc=-&utmul=-&utmje=0
+	|-> &utmfl=-&utmdt=-&utmhn=localhost&utmr=-&utmp=
+	|-> /[NOSCRIPT]&utmac=UA-xxxxxx-x&utmcc=__utma%3D938102714
+	|-> .2068565733.1256572500.1256572500.1256572500.2%3B%2B__utmb
+	|->	%3D938102714%3B%2B__utmc%3D938102714%3B%2B__utmz
+	|-> %3D938102714.1256572500.2.2.utmccn%3D(direct)%7Cutmcsr%3D
+	|-> (direct)%7Cutmcmd%3D(none)%3B%2B__utmv%3D938102714.-%3B"
+	alt="GA" style="display: none;border:none;" border="0" /&gt; 
+&lt;/noscript&gt; 
+ 
+&lt;!-- Google Analytics End --&gt;</code></pre>
+		</div>
+	</div>
+
+   <div class="span-17 last">
+        &nbsp;</div>
+ <div class="span-17 last">
+    <div>    There are also several overloads, allowing you to customize the parameters that reach the Google Analytics Dashboard</div>
+	<div><pre><code>&lt;%= Html.GoogleAnalytics(
+	"UA-xxxxxx-x",//Google Analytics Account ID
+	"CustomPageName",//Page name that will be displayed in the dashboard
+	"custom.domain.com",//Domain to track
+	"",//Referer
+	"userVariable" //custom variable passed to the dashboard
+		)%&gt;</code></pre>
+	</div>
+</div>	
+</div>
