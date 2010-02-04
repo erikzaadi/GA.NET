@@ -15,4 +15,7 @@ document.documentElement.firstChild.appendChild(ga);
 http://www.stevesouders.com/blog/2009/12/01/google-analytics-goes-async/
 http://googlecode.blogspot.com/2009/12/google-analytics-launches-asynchronous.html
 
+http://www.webresourcesdepot.com/feedcount-like-google-analytics-counter/
+http://code.google.com/p/gapi-google-analytics-php-interface/
+
 Add support for events / custom domains?
