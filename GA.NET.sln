@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GA.NET.Core", "src\GA.NET.Core\GA.NET.Core.csproj", "{2408C6B9-BC4E-428C-A867-128D9441686D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GA.NET.MVC", "src\GA.NET.MVC\GA.NET.MVC.csproj", "{962AFFD3-8647-4816-9951-99AD4D7A4AD1}"
